@@ -12,7 +12,15 @@ export default function Labs() {
           href="https://github.com/chenchen218/Chen-react-web-app/tree/a1"
           target="_blank"
         >
-          code
+          code for a1
+        </a>
+      </h2>
+      <h2>
+        <a
+          href="https://a1--kanbas-react-web-app-cs5610-chen.netlify.app/#/Kanbas/Account/Signin"
+          target="_blank"
+        >
+          Link to Kanbas
         </a>
       </h2>
       <TOC />
