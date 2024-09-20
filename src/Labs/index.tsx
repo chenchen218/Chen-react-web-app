@@ -6,7 +6,7 @@ export default function Labs() {
   return (
     <div>
       <h1>Chenyang Li</h1>
-      <h2>Section01</h2>
+      <h2>Section02</h2>
       <h2>
         <a
           href="https://github.com/chenchen218/Chen-react-web-app/tree/a1"
