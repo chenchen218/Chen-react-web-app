@@ -5,12 +5,10 @@ export default function Home() {
     <table id="wd-home">
       <tr>
         <td valign="top">
-          {" "}
-          <Modules />{" "}
+          <Modules />
         </td>
         <td valign="top">
-          {" "}
-          <CourseStatus />{" "}
+          <CourseStatus />
         </td>
       </tr>
     </table>
