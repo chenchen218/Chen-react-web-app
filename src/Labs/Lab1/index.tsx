@@ -146,7 +146,7 @@ export default function Lab1() {
             placeholder="Doe"
             value="Wonderland"
             title="The last name"
-          />{" "}
+          />
           <h5>Text boxes</h5> <label>Biography:</label>
           <br />{" "}
           <textarea id="wd-textarea" cols={30} rows={10}>
