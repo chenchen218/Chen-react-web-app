@@ -23,6 +23,7 @@ export default function Assignments() {
             <br />
           </span>
         </li>
+
         <li className="wd-assignment-list-item">
           <a
             className="wd-assignment-link"
