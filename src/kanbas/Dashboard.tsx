@@ -29,6 +29,22 @@ export default function Dashboard() {
               to="/Kanbas/Courses/1234/Home"
             >
               {" "}
+              CS5200 Database{" "}
+            </Link>
+            <p className="wd-dashboard-course-title">
+              Full Stack software developer{" "}
+            </p>
+            <Link to="/Kanbas/Courses/1234/Home"> Go </Link>
+          </div>
+        </div>
+        <div className="wd-dashboard-course">
+          <img src="/images/reactjs.jpg" width={200} />
+          <div>
+            <Link
+              className="wd-dashboard-course-link"
+              to="/Kanbas/Courses/1234/Home"
+            >
+              {" "}
               CS1234 React JS{" "}
             </Link>
             <p className="wd-dashboard-course-title">
@@ -37,6 +53,75 @@ export default function Dashboard() {
             <Link to="/Kanbas/Courses/1234/Home"> Go </Link>
           </div>
         </div>
+
+        <div className="wd-dashboard-course">
+          <img src="/images/reactjs.jpg" width={200} />
+          <div>
+            <Link
+              className="wd-dashboard-course-link"
+              to="/Kanbas/Courses/1234/Home"
+            >
+              {" "}
+              CS1234 React JS{" "}
+            </Link>
+            <p className="wd-dashboard-course-title">
+              Full Stack software developer{" "}
+            </p>
+            <Link to="/Kanbas/Courses/1234/Home"> Go </Link>
+          </div>
+        </div>
+
+        <div className="wd-dashboard-course">
+          <img src="/images/reactjs.jpg" width={200} />
+          <div>
+            <Link
+              className="wd-dashboard-course-link"
+              to="/Kanbas/Courses/1234/Home"
+            >
+              {" "}
+              CS1234 React JS{" "}
+            </Link>
+            <p className="wd-dashboard-course-title">
+              Full Stack software developer{" "}
+            </p>
+            <Link to="/Kanbas/Courses/1234/Home"> Go </Link>
+          </div>
+        </div>
+
+        <div className="wd-dashboard-course">
+          <img src="/images/reactjs.jpg" width={200} />
+          <div>
+            <Link
+              className="wd-dashboard-course-link"
+              to="/Kanbas/Courses/1234/Home"
+            >
+              {" "}
+              CS1234 React JS{" "}
+            </Link>
+            <p className="wd-dashboard-course-title">
+              Full Stack software developer{" "}
+            </p>
+            <Link to="/Kanbas/Courses/1234/Home"> Go </Link>
+          </div>
+        </div>
+
+        <div className="wd-dashboard-course">
+          <img src="/images/reactjs.jpg" width={200} />
+          <div>
+            <Link
+              className="wd-dashboard-course-link"
+              to="/Kanbas/Courses/1234/Home"
+            >
+              {" "}
+              CS1234 React JS{" "}
+            </Link>
+            <p className="wd-dashboard-course-title">
+              Full Stack software developer{" "}
+            </p>
+            <Link to="/Kanbas/Courses/1234/Home"> Go </Link>
+          </div>
+        </div>
+
         <div className="wd-dashboard-course">
           <img src="/images/reactjs.jpg" width={200} />
           <div>
