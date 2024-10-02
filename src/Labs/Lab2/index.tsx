@@ -1,6 +1,17 @@
 import "./index.css";
-import "./corners";
-import "./margins";
+import Corners from "./corners";
+import Foreground from "./foregroundColor";
+import Background from "./backgroundColor";
+import Padding from "./padding";
+import Dimensions from "./dimensions";
+import Position from "./position";
+import Margin from "./margins";
+import ZIndex from "./Zindex";
+import Float from "./float";
+import GirdLayout from "./GirdLayout";
+import Flex from "./flex";
+import ReactIconsSampler from "./Reacticons";
+import "bootstrap/dist/css/bootstrap.min.css";
 export default function Lab2() {
   return (
     <div id="wd-lab2">
@@ -100,7 +111,7 @@ export default function Lab2() {
         Dashed thin blue border
       </p>
       {/* #slides 15 */}
-      <div id="wd-css-margins">
+      {/* <div id="wd-css-margins">
         <h2>Margins</h2>
         <div
           className="wd-margin-bottom wd-padded-top-left 
@@ -124,11 +135,19 @@ export default function Lab2() {
         >
           Margin all around{" "}
         </div>
-      </div>
-      <h3>Rounded Corners</h3>
-      <p className="rounded-corners-top botder-thin border-blue border-solid padding-fat">
-        Rounded corners on the top
-      </p>
+      </div> */}
+      <Foreground />
+      <Background />
+      <Padding />
+      <Margin />
+      <Corners />
+      <Dimensions />
+      <Position />
+      <ZIndex />
+      <Float />
+      <GirdLayout />
+      <Flex />
+      <ReactIconsSampler />
     </div>
   );
 }
