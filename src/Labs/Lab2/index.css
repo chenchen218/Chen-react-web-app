@@ -135,6 +135,7 @@ p#wd-id-selector-2 {
   width: 75 px;
   height: 100 px;
 }
+
 .wd-dimension-landscape {
   width: 100 px;
   height: 75 px;
@@ -143,6 +144,7 @@ p#wd-id-selector-2 {
   width: 75 px;
   height: 75 px;
 }
+
 .wd-pos-relative-nudge-up-right {
   position: relative;
   bottom: 30 px;
@@ -231,4 +233,17 @@ p#wd-id-selector-2 {
 }
 .wd-width-75px {
   width: 75px;
+}
+
+#wd-screen-size-label {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: black;
+  color: white;
+  padding: 5px;
+  font-size: 12px;
+  z-index: 1000;
+  width: 220px;
+  text-align: center;
 }
