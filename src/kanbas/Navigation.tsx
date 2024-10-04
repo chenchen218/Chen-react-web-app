@@ -13,6 +13,14 @@ export default function KanbasNavigation() {
       id="wd-kanbas-navigation"
       style={{ width: 120 }}
     >
+      <div className="d-flex justify-content-center align-items-center my-3">
+        <img
+          src="images/neulogo.jpg"
+          width="60"
+          height="50"
+          className="text-center"
+        />
+      </div>
       <a
         className="border-0  text-center bg-black text-white list-group-item"
         href="https://www.northeastern.edu/"
@@ -67,6 +75,8 @@ export default function KanbasNavigation() {
         to="/Kanbas/Inbox"
         id="wd-inbox-link"
       >
+        <FaInbox className="fs-1 text-danger" />
+        <br />
         Inbox
       </Link>
 
@@ -75,6 +85,8 @@ export default function KanbasNavigation() {
         to="/Labs"
         id="wd-labs-link"
       >
+        <LiaCogSolid className="fs-1 text-danger" />
+        <br />
         Labs
       </Link>
     </div>
