@@ -5,7 +5,7 @@ import Background from "./backgroundColor";
 import Padding from "./padding";
 import Position from "./position";
 import Margin from "./margins";
-// import Dimension from "./Dimensions";
+import Dimension from "./Dimensions";
 import ZIndex from "./Zindex";
 import Float from "./float";
 import GirdLayout from "./GirdLayout";
@@ -147,7 +147,7 @@ export default function Lab2() {
       <Padding />
       <Margin />
       <Corners />
-      {/* <Dimension /> */}
+      <Dimension />
       <Position />
       <ZIndex />
       <Float />

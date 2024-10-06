@@ -1,15 +1,22 @@
-/* p {
-  background-color: blue;
-  color: white;
-  margin-top: 50px;
-  margin-left: 80px;
-} */
-
 p#wd-id-selector-1 {
   background-color: red;
   color: white;
 }
 p#wd-id-selector-2 {
+  .wd-dimension-portrait {
+    width: 75px;
+    height: 100px;
+  }
+
+  .wd-dimension-landscape {
+    width: 100px;
+    height: 75px;
+  }
+
+  .wd-dimension-square {
+    width: 75px;
+    height: 75px;
+  }
   background-color: yellow;
   color: black;
 }
@@ -130,19 +137,19 @@ p#wd-id-selector-2 {
   border-top-left-radius: 40px;
   border-top-right-radius: 40px;
 }
-
 .wd-dimension-portrait {
-  width: 75 px;
-  height: 100 px;
+  width: 75px;
+  height: 100px;
 }
 
 .wd-dimension-landscape {
-  width: 100 px;
-  height: 75 px;
+  width: 100px;
+  height: 75px;
 }
+
 .wd-dimension-square {
-  width: 75 px;
-  height: 75 px;
+  width: 75px;
+  height: 75px;
 }
 
 .wd-pos-relative-nudge-up-right {

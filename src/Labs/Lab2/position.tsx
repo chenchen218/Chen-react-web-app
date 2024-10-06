@@ -1,3 +1,4 @@
+import "./index.css";
 export default function Position() {
   return (
     <div id="wd-css-position-relative">
