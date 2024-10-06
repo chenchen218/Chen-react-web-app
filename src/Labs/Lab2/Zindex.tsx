@@ -1,4 +1,3 @@
-import "./index.css";
 export default function ZIndex() {
   return (
     <div id="wd-z-index">

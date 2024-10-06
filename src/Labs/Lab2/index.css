@@ -20,6 +20,7 @@ p#wd-id-selector-2 {
   background-color: yellow;
   color: black;
 }
+
 .wd-fg-color-black {
   color: black;
 }
@@ -99,6 +100,7 @@ p#wd-id-selector-2 {
   padding-top: 50px;
   padding-left: 50px;
 }
+
 .wd-padded-bottom-right {
   padding-bottom: 50px;
   padding-right: 50px;
@@ -107,6 +109,9 @@ p#wd-id-selector-2 {
   padding: 50px;
 }
 
+.wd-zindex-bring-to-front {
+  z-index: 10;
+}
 .wd-margin-bottom {
   margin-bottom: 50px;
 }
@@ -154,13 +159,13 @@ p#wd-id-selector-2 {
 
 .wd-pos-relative-nudge-up-right {
   position: relative;
-  bottom: 30 px;
-  left: 30 px;
+  bottom: 30px;
+  left: 30px;
 }
 .wd-pos-relative-nudge-down-right {
   position: relative;
-  top: 20 px;
-  left: 20 px;
+  top: 20px;
+  left: 20px;
 }
 .wd-pos-relative {
   position: relative;
@@ -168,18 +173,18 @@ p#wd-id-selector-2 {
 
 .wd-pos-absolute-10-10 {
   position: absolute;
-  top: 10 px;
-  left: 10 px;
+  top: 10px;
+  left: 10px;
 }
 .wd-pos-absolute-50-50 {
   position: absolute;
-  top: 50 px;
-  left: 50 px;
+  top: 50px;
+  left: 50px;
 }
 .wd-pos-absolute-120-20 {
   position: absolute;
-  top: 20 px;
-  left: 120 px;
+  top: 20px;
+  left: 120px;
 }
 
 .wd-pos-fixed {
@@ -187,6 +192,7 @@ p#wd-id-selector-2 {
   right: 0 px;
   bottom: 50%;
 }
+
 .wd-zindex-bring-to-front {
   z-index: 10;
 }

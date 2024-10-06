@@ -1,4 +1,3 @@
-import "./index.css";
 export default function Position() {
   return (
     <div id="wd-css-position-relative">
@@ -12,6 +11,9 @@ export default function Position() {
         </div>
         <div className="wd-bg-color-red wd-dimension-square">Square</div>
       </div>
+      <br />
+      <br />
+      <br />
 
       <div id="wd-css-position-absolute">
         <h2>Absolute position</h2>
