@@ -1,6 +1,7 @@
 import LessonControlButtons from "../../LessonControlButton";
 import ModulesControls from "./ModulesControls";
 import { BsGripVertical } from "react-icons/bs";
+
 export default function Modules() {
   return (
     <div>
@@ -67,7 +68,49 @@ export default function Modules() {
               </li>
             </ul>
           </li>
-        </ul>{" "}
+
+          <li
+            className="wd-module list-group-item p-0
+                 mb-5 fs-5 border-gray"
+          >
+            <div className="wd-title p-3 ps-2 bg-secondary">
+              Week 3 <LessonControlButtons />
+            </div>
+            <ul className="wd-lessons list-group rounded-0">
+              <li className="wd-lesson list-group-item p-3 ps-1">
+                LEARNING OBJECTIVES
+                <LessonControlButtons />
+              </li>
+              <li className="wd-lesson list-group-item p-3 ps-1">
+                LESSON 1 <LessonControlButtons />
+              </li>
+              <li className="wd-lesson list-group-item p-3 ps-1">
+                LESSON 2 <LessonControlButtons />
+              </li>
+            </ul>
+          </li>
+
+          <li
+            className="wd-module list-group-item p-0
+                 mb-5 fs-5 border-gray"
+          >
+            <div className="wd-title p-3 ps-2 bg-secondary">
+              Week <LessonControlButtons />
+            </div>
+            <ul className="wd-lessons list-group rounded-0">
+              <li className="wd-lesson list-group-item p-3 ps-1">
+                LEARNING OBJECTIVES
+                <LessonControlButtons />
+              </li>
+              <li className="wd-lesson list-group-item p-3 ps-1">
+                LESSON 1 <LessonControlButtons />
+              </li>
+              <li className="wd-lesson list-group-item p-3 ps-1">
+                LESSON 2 <LessonControlButtons />
+              </li>
+            </ul>
+          </li>
+        </ul>
       </div>
 
       <ul id="wd-modules">
@@ -76,7 +119,7 @@ export default function Modules() {
             Week 1, lecture 1 - Course Introduction, Syllabus, Agenda
           </div>
           <ul className="wd-lessons">
-            <li className="wd-lesson">
+            {/* <li className="wd-lesson">
               <span className="wd-title">LEARNING OBJECTIVES</span>
               <ul className="wd-content">
                 <li className="wd-content-item">Introduction to the course</li>
@@ -84,9 +127,9 @@ export default function Modules() {
                   Learn what is Web Development
                 </li>
               </ul>
-            </li>
+            </li> */}
 
-            <li className="wd-lesson">
+            {/* <li className="wd-lesson">
               <span className="wd-title"> READINGS</span>
               <ul className="wd-content">
                 <li className="wd-content-item">
@@ -96,9 +139,9 @@ export default function Modules() {
                   Full Stack Developer- Chapter 1 - Creating User
                 </li>
               </ul>
-            </li>
+            </li> */}
 
-            <li className="wd-lesson">
+            {/* <li className="wd-lesson">
               <span className="wd-title"> SLIDES</span>
               <ul className="wd-content">
                 <li className="wd-content-item">
@@ -111,20 +154,20 @@ export default function Modules() {
                   Creating a react application
                 </li>
               </ul>
-            </li>
+            </li> */}
           </ul>
         </li>
 
-        <li className="wd-module">
+        {/* <li className="wd-module">
           <div className="wd-title">
             Week 1, Lecture 2- Formatting User Interface with HTML
           </div>
           <ul className="wd-lessons">
             <li className="wd-lesson">
-              {/* <span className="wd-title">LEARNING OBJECTIVES</span> */}
+              <span className="wd-title">LEARNING OBJECTIVES</span>
             </li>
           </ul>
-        </li>
+        </li> */}
       </ul>
     </div>
   );
