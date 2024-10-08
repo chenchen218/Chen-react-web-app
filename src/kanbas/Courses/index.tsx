@@ -4,6 +4,7 @@ import Home from "./Home";
 import { Navigate, Route, Routes } from "react-router";
 import Assignments from "./Assignments";
 import AssignmentEditor from "./Assignments/Editor";
+import PeopleTable from "./People/Table";
 export default function Courses() {
   return (
     <div id="wd-courses">
@@ -20,9 +21,10 @@ export default function Courses() {
               <Route path="Home" element={<Home />} />
               <Route path="Modules" element={<Modules />} />
 
-              <Route path="People" element={<h3>People</h3>} />
+              {/* <Route path="People" element={<h3>People</h3>} /> */}
               <Route path="Assignments" element={<Assignments />} />
               <Route path="Assignments/:aid" element={<AssignmentEditor />} />
+              <Route path="People" element={<PeopleTable />} />
             </Routes>
           </td>
         </tr>

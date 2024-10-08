@@ -17,7 +17,7 @@ export default function Dashboard() {
                 <img src="/images/reactjs.jpg" width="100%" height={160} />
                 <div className="card-body">
                   <h5 className="wd-dashboard-course-title card-title">
-                    CS1234 React JS{" "}
+                    CS5610 Web Development
                   </h5>
                   <p className="wd-dashboard-course-title card-text">
                     Full Stack software developer{" "}
@@ -40,10 +40,10 @@ export default function Dashboard() {
                 <img src="/images/reactjs.jpg" width="100%" height={160} />
                 <div className="card-body">
                   <h5 className="wd-dashboard-course-title card-title">
-                    CS5610 Web Development{" "}
+                    CS5004 Object Orient Programming{" "}
                   </h5>
                   <p className="wd-dashboard-course-title card-text">
-                    Full Stack software developer{" "}
+                    OOP in JAVA{" "}
                   </p>
                   <button className="btn btn-primary"> Go </button>
                 </div>
@@ -63,10 +63,10 @@ export default function Dashboard() {
                 <img src="/images/reactjs.jpg" width="100%" height={160} />
                 <div className="card-body">
                   <h5 className="wd-dashboard-course-title card-title">
-                    CS1234 React JS{" "}
+                    CS008 Data Structure
                   </h5>
                   <p className="wd-dashboard-course-title card-text">
-                    Full Stack software developer{" "}
+                    Data Structure in C
                   </p>
                   <button className="btn btn-primary"> Go </button>
                 </div>
@@ -86,10 +86,31 @@ export default function Dashboard() {
                 <img src="/images/reactjs.jpg" width="100%" height={160} />
                 <div className="card-body">
                   <h5 className="wd-dashboard-course-title card-title">
-                    CS1234 React JS{" "}
+                    CS5200 Database Management
+                  </h5>
+                  <p className="wd-dashboard-course-title card-text">MySQL</p>
+                  <button className="btn btn-primary"> Go </button>
+                </div>
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        <div className="col-12 col-sm-8 col-md-6 col-lg-4 mb-4">
+          <div className="wd-dashboard-course col" style={{ width: "300px" }}>
+            <div className="card rounded-3 overflow-hidden">
+              <Link
+                className="wd-dashboard-course-link
+                           text-decoration-none text-dark"
+                to="/Kanbas/Courses/1234/Home"
+              >
+                <img src="/images/reactjs.jpg" width="100%" height={160} />
+                <div className="card-body">
+                  <h5 className="wd-dashboard-course-title card-title">
+                    CS7200
                   </h5>
                   <p className="wd-dashboard-course-title card-text">
-                    Full Stack software developer{" "}
+                    Cloud Computing
                   </p>
                   <button className="btn btn-primary"> Go </button>
                 </div>
@@ -109,33 +130,10 @@ export default function Dashboard() {
                 <img src="/images/reactjs.jpg" width="100%" height={160} />
                 <div className="card-body">
                   <h5 className="wd-dashboard-course-title card-title">
-                    CS1234 React JS{" "}
+                    CS5002 Discrete Math
                   </h5>
                   <p className="wd-dashboard-course-title card-text">
-                    Full Stack software developer{" "}
-                  </p>
-                  <button className="btn btn-primary"> Go </button>
-                </div>
-              </Link>
-            </div>
-          </div>
-        </div>
-
-        <div className="col-12 col-sm-8 col-md-6 col-lg-4 mb-4">
-          <div className="wd-dashboard-course col" style={{ width: "300px" }}>
-            <div className="card rounded-3 overflow-hidden">
-              <Link
-                className="wd-dashboard-course-link
-                           text-decoration-none text-dark"
-                to="/Kanbas/Courses/1234/Home"
-              >
-                <img src="/images/reactjs.jpg" width="100%" height={160} />
-                <div className="card-body">
-                  <h5 className="wd-dashboard-course-title card-title">
-                    CS1234 React JS{" "}
-                  </h5>
-                  <p className="wd-dashboard-course-title card-text">
-                    Full Stack software developer{" "}
+                    Discrete math
                   </p>
                   <button className="btn btn-primary"> Go </button>
                 </div>
@@ -154,10 +152,10 @@ export default function Dashboard() {
                 <img src="/images/reactjs.jpg" width="100%" height={160} />
                 <div className="card-body">
                   <h5 className="wd-dashboard-course-title card-title">
-                    CS1234 React JS{" "}
+                    CS7100 Computer Architecture
                   </h5>
                   <p className="wd-dashboard-course-title card-text">
-                    Full Stack software developer{" "}
+                    CPU development
                   </p>
                   <button className="btn btn-primary"> Go </button>
                 </div>
