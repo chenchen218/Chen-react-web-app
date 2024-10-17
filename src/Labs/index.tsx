@@ -26,12 +26,21 @@ export default function Labs() {
       </h2>
       <h2>
         <a
+          href="https://github.com/chenchen218/Chen-react-web-app/tree/a3"
+          target="_blank"
+        >
+          code for a3
+        </a>
+      </h2>
+      <h2>
+        <a
           href="https://a2--kanbas-react-web-app-cs5610-chen.netlify.app/#/Kanbas/Dashboard"
           target="_blank"
         >
           Link to Kanbas
         </a>
       </h2>
+
       <TOC />
       <Routes>
         <Route path="Lab1" element={<Lab1 />} />
