@@ -1,14 +1,20 @@
 import AssignmentsControlButton from "./AssignmentControlButton";
 import AssignmentCheck from "./AssignmentCheckButton";
 import { BsGripVertical } from "react-icons/bs";
+import { CiSearch } from "react-icons/ci";
 import { FaPlus } from "react-icons/fa";
+import AssignmentSearchBar from "./AssignmentSearch";
 export default function Assignments() {
   return (
     <div id="wd-assignments">
-      <input id="wd-search-assignment" placeholder="Search for Assignments" />
+      {/* <div>
+        <CiSearch />
+        <input id="wd-search-assignment" placeholder="Search for Assignments" />
+      </div> */}
+      <AssignmentSearchBar />
       <AssignmentsControlButton />
       <br />
-      <br />
+
       <br />
       <br />
       <ul id="wd-assignments-titles" className="list-group rounded-0">
