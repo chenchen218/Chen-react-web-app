@@ -14,16 +14,14 @@ export default function Assignments() {
 
   return (
     <div id="wd-assignments">
-      <AssignmentSearchBar />
+      <AssignmentSearchBar />f
       <button className="btn btn-lg btn-danger float-end">
         <FaPlus className="me-2" />
         Add Assignment
       </button>
-
       <br />
       <br />
       <br />
-
       <ul id="wd-assignments-titles" className="list-group rounded-0">
         <li className="wd-assignments-title list-group-item p-0 mb-5 fs-5 border-gray">
           <div className="wd-title p-3 ps-2 bg-secondary">
@@ -52,8 +50,10 @@ export default function Assignments() {
                   </Link>
                   <span className="float-end">
                     <br />
-                    Multiple Modules | <strong>Due soon</strong> | 100 pts
+                    {assignment.description || "No description available"}{" "}
                     <br />
+                    <strong>Due:</strong> {assignment.dueDate || "TBD"} <br />
+                    <strong>Points:</strong> {assignment.points || "N/A"} pts
                   </span>
                 </li>
               ))

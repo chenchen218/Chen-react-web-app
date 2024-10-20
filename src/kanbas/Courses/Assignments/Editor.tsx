@@ -1,4 +1,17 @@
+import React from "react";
+import { useParams, Link } from "react-router-dom";
+import * as db from "../../Database"; // Import the assignments data
+
 export default function AssignmentEditor() {
+  const { cid, aid } = useParams<{ cid: string; aid: string }>(); // Get the course and assignment IDs from the URL
+  const assignment = db.assignments.find(
+    (assignment) => assignment._id === aid
+  ); // Find the specific assignment by ID
+
+  if (!assignment) {
+    return <div>Assignment not found</div>; // Handle case when assignment is not found
+  }
+
   return (
     <div id="wd-assignments-editor" className="p-4">
       <div className="card">
@@ -9,8 +22,9 @@ export default function AssignmentEditor() {
             </label>
             <input
               id="wd-name"
-              value="A1 - ENV + HTML"
+              value={assignment.title}
               className="form-control"
+              readOnly
             />
           </div>
 
@@ -23,15 +37,8 @@ export default function AssignmentEditor() {
               cols={45}
               rows={10}
               className="form-control"
-            >
-              The assignment is available online. Submit a link to the landing
-              page of your web application running on Netlify. The landing page
-              should include the following: Your full name and your section,
-              links to each lab assignment, link to the Kanbas application, and
-              links to all relevant source code repositories. The Kanbas
-              application should include a link to navigate back to the landing
-              page.
-            </textarea>
+              defaultValue={assignment.description}
+            />
           </div>
 
           <div className="row mb-3">
@@ -39,7 +46,12 @@ export default function AssignmentEditor() {
               <label htmlFor="wd-points" className="form-label">
                 Points
               </label>
-              <input id="wd-points" value={100} className="form-control" />
+              <input
+                id="wd-points"
+                value={assignment.points}
+                className="form-control"
+                readOnly
+              />
             </div>
 
             <div className="col-md-6">
@@ -47,7 +59,7 @@ export default function AssignmentEditor() {
                 Assignment Group
               </label>
               <select id="wd-select-group" className="form-select">
-                <option selected value="ASSIGNMENT">
+                <option selected value="ASSIGNMENTS">
                   ASSIGNMENTS
                 </option>
                 <option value="TESTS">TESTS</option>
@@ -142,7 +154,12 @@ export default function AssignmentEditor() {
 
           <div className="mb-3">
             <label className="form-label">Assign to</label>
-            <input id="wd-assign" value="Everyone" className="form-control" />
+            <input
+              id="wd-assign"
+              value="Everyone"
+              className="form-control"
+              readOnly
+            />
           </div>
 
           <div className="row mb-3">
@@ -153,8 +170,9 @@ export default function AssignmentEditor() {
               <input
                 type="date"
                 id="wd-due"
-                value="2024-05-13"
+                value={assignment.dueDate}
                 className="form-control"
+                readOnly
               />
             </div>
             <div className="col-md-3">
@@ -164,7 +182,7 @@ export default function AssignmentEditor() {
               <input
                 type="date"
                 id="wd-available"
-                value="2024-05-06"
+                value={assignment.availableFrom}
                 className="form-control"
               />
             </div>
@@ -175,14 +193,19 @@ export default function AssignmentEditor() {
               <input
                 type="date"
                 id="wd-until"
-                value="2024-05-20"
+                value={assignment.untilDate}
                 className="form-control"
               />
             </div>
           </div>
 
           <div className="d-flex justify-content-end">
-            <button className="btn btn-secondary me-2">Cancel</button>
+            <Link
+              to={`/Kanbas/Courses/${cid}/Assignments`}
+              className="btn btn-secondary me-2"
+            >
+              Cancel
+            </Link>
             <button className="btn btn-danger">Save</button>
           </div>
         </div>
