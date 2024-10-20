@@ -206,7 +206,12 @@ export default function AssignmentEditor() {
             >
               Cancel
             </Link>
-            <button className="btn btn-danger">Save</button>
+            <Link
+              to={`/Kanbas/Courses/${cid}/Assignments`}
+              className="btn btn-danger"
+            >
+              Save
+            </Link>
           </div>
         </div>
       </div>
