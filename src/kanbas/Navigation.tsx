@@ -1,94 +1,64 @@
-import { Link } from "react-router-dom";
 import { AiOutlineDashboard } from "react-icons/ai";
-import { IoSpeedometerOutline, IoCalendarOutline } from "react-icons/io5";
+import { IoCalendarOutline } from "react-icons/io5";
 import { LiaBookSolid, LiaCogSolid } from "react-icons/lia";
 import { FaInbox, FaRegCircleUser } from "react-icons/fa6";
-import { MdOutlineAccountCircle } from "react-icons/md";
-import { FaCalendar } from "react-icons/fa";
-
+import { Link, useLocation } from "react-router-dom";
 export default function KanbasNavigation() {
+  const { pathname } = useLocation();
+  const links = [
+    { label: "Dashboard", path: "/Kanbas/Dashboard", icon: AiOutlineDashboard },
+    { label: "Courses", path: "/Kanbas/Dashboard", icon: LiaBookSolid },
+    { label: "Calendar", path: "/Kanbas/Calendar", icon: IoCalendarOutline },
+    { label: "Inbox", path: "/Kanbas/Inbox", icon: FaInbox },
+    { label: "Labs", path: "/Labs", icon: LiaCogSolid },
+  ];
   return (
     <div
-      className="  border-0 bottom-0 top-0 position-fixed d-none d-md-block list-group rounded-0 bg-black"
       id="wd-kanbas-navigation"
       style={{ width: 120 }}
+      className="list-group rounded-0 position-fixed bottom-0 top-0 d-none d-md-block bg-black z-2"
     >
-      <div className="d-flex justify-content-center align-items-center my-3">
-        <img
-          src="images/neulogo.jpg"
-          width="60"
-          height="50"
-          className="text-center"
-        />
-      </div>
       <a
-        className="border-0  text-center bg-black text-white list-group-item"
-        href="https://www.northeastern.edu/"
         id="wd-neu-link"
         target="_blank"
+        href="https://www.northeastern.edu/"
+        className="list-group-item bg-black border-0 text-center"
       >
-        Northeastern
+        <img src="/images/neulogo.jpg" width="75px" />
       </a>
-
       <Link
-        className="border-0 text-center bg-white text-danger list-group-item"
         to="/Kanbas/Account"
-        id="wd-account-link"
+        className={`list-group-item text-center border-0 bg-black
+            ${
+              pathname.includes("Account")
+                ? "bg-white text-danger"
+                : "bg-black text-white"
+            }`}
       >
-        <MdOutlineAccountCircle className="fs-1" />
+        <FaRegCircleUser
+          className={`fs-1 ${
+            pathname.includes("Account") ? "text-danger" : "text-white"
+          }`}
+        />
         <br />
         Account
       </Link>
-
-      <Link
-        className=" border-0 text-center bg-black text-white list-group-item"
-        to="/Kanbas/Dashboard"
-        id="wd-dashboard-link"
-      >
-        <IoSpeedometerOutline className="fs-1 text-danger" />
-        <br />
-        Dashboard
-      </Link>
-
-      <Link
-        className="border-0 text-center bg-black text-white list-group-item"
-        to="/Kanbas/Courses"
-        id="wd-course-link"
-      >
-        <LiaBookSolid className="fs-1 text-danger" />
-        <br />
-        Courses
-      </Link>
-
-      <Link
-        className="border-0 text-center bg-black text-white list-group-item"
-        to="/Kanbas/Calendar"
-        id="wd-calendar-link"
-      >
-        <FaCalendar className="fs-1 text-danger" />
-        <br />
-        Calendar
-      </Link>
-
-      <Link
-        className="border-0 text-center bg-black text-white list-group-item"
-        to="/Kanbas/Inbox"
-        id="wd-inbox-link"
-      >
-        <FaInbox className="fs-1 text-danger" />
-        <br />
-        Inbox
-      </Link>
-
-      <Link
-        className="border-0 text-center  bg-black text-white list-group-item"
-        to="/Labs"
-        id="wd-labs-link"
-      >
-        <LiaCogSolid className="fs-1 text-danger" />
-        <br />
-        Labs
-      </Link>
+      {links.map((link) => (
+        <Link
+          key={link.path}
+          to={link.path}
+          className={`list-group-item bg-black text-center border-0
+              ${
+                pathname.includes(link.label)
+                  ? "text-danger bg-white"
+                  : "text-white bg-black"
+              }`}
+        >
+          {link.icon({ className: "fs-1 text-danger" })}
+          <br />
+          {link.label}
+        </Link>
+      ))}
     </div>
   );
 }
