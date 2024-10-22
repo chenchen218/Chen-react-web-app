@@ -14,88 +14,89 @@ export default function AssignmentEditor() {
 
   return (
     <div id="wd-assignments-editor" className="p-4">
-      <div className="card">
-        <div className="card-body">
-          <div className="mb-3">
-            <label htmlFor="wd-name" className="form-label">
-              Assignment Name
-            </label>
-            <input
-              id="wd-name"
-              value={assignment.title}
-              className="form-control"
-              readOnly
-            />
-          </div>
+      <h3 className="mb-3">{assignment.title}</h3>
 
-          <div className="mb-3">
-            <label htmlFor="wd-description" className="form-label">
-              Assignment Description
-            </label>
-            <textarea
-              id="wd-description"
-              cols={45}
-              rows={10}
-              className="form-control"
-              defaultValue={assignment.description}
-            />
-          </div>
+      <div className="mb-3">
+        <label htmlFor="wd-name" className="form-label">
+          Assignment Name
+        </label>
+        <input
+          id="wd-name"
+          value={assignment.title}
+          className="form-control"
+          readOnly
+        />
+      </div>
 
-          <div className="row mb-3">
-            <div className="col-md-6">
-              <label htmlFor="wd-points" className="form-label">
-                Points
-              </label>
-              <input
-                id="wd-points"
-                value={assignment.points}
-                className="form-control"
-                readOnly
-              />
-            </div>
+      <div className="mb-3">
+        <label htmlFor="wd-description" className="form-label">
+          Assignment Description
+        </label>
+        <textarea
+          id="wd-description"
+          cols={45}
+          rows={5}
+          className="form-control"
+          defaultValue={assignment.description}
+        />
+      </div>
 
-            <div className="col-md-6">
-              <label htmlFor="wd-group" className="form-label">
-                Assignment Group
-              </label>
-              <select id="wd-select-group" className="form-select">
-                <option selected value="ASSIGNMENTS">
-                  ASSIGNMENTS
-                </option>
-                <option value="TESTS">TESTS</option>
-                <option value="PROJECTS">PROJECTS</option>
-                <option value="LABS">LABS</option>
-              </select>
-            </div>
-          </div>
+      <div className="mb-3">
+        <label htmlFor="wd-points" className="form-label">
+          Points
+        </label>
+        <input
+          id="wd-points"
+          value={assignment.points}
+          className="form-control"
+          readOnly
+        />
+      </div>
 
-          <div className="row mb-3">
-            <div className="col-md-6">
-              <label htmlFor="wd-grade-display" className="form-label">
-                Display Grade as
-              </label>
-              <select id="wd-select-grade" className="form-select">
-                <option selected value="PERCENTAGE">
-                  Percentage
-                </option>
-                <option value="LETTER">Letter</option>
-              </select>
-            </div>
+      {/* Assignment Group (Separate Line) */}
+      <div className="mb-3">
+        <label htmlFor="wd-group" className="form-label">
+          Assignment Group
+        </label>
+        <select id="wd-select-group" className="form-select">
+          <option selected value="ASSIGNMENTS">
+            ASSIGNMENTS
+          </option>
+          <option value="TESTS">TESTS</option>
+          <option value="PROJECTS">PROJECTS</option>
+          <option value="LABS">LABS</option>
+        </select>
+      </div>
 
-            <div className="col-md-6">
-              <label htmlFor="wd-submission-type" className="form-label">
-                Submission Type
-              </label>
-              <select id="wd-select-submission" className="form-select">
-                <option selected value="Online">
-                  ONLINE
-                </option>
-                <option value="INPERSON">IN-PERSON</option>
-              </select>
-            </div>
-          </div>
+      {/* Display Grade as (Separate Line) */}
+      <div className="mb-3">
+        <label htmlFor="wd-grade-display" className="form-label">
+          Display Grade as
+        </label>
+        <select id="wd-select-grade" className="form-select">
+          <option selected value="PERCENTAGE">
+            Percentage
+          </option>
+          <option value="LETTER">Letter</option>
+        </select>
+      </div>
 
-          <div className="mb-3">
+      {/* Grid for Submission Type and Assign */}
+
+      {/* Submission Type */}
+      <div className="mb-3">
+        <div className="border p-3 mb-3">
+          <label htmlFor="wd-submission-type" className="form-label">
+            Submission Type
+          </label>
+          <select id="wd-select-submission" className="form-select">
+            <option selected value="Online">
+              ONLINE
+            </option>
+            <option value="INPERSON">IN-PERSON</option>
+          </select>
+
+          <div className="mt-3">
             <label className="form-label">Online Entry Options</label>
             <div className="form-check">
               <input
@@ -112,6 +113,7 @@ export default function AssignmentEditor() {
                 type="checkbox"
                 className="form-check-input"
                 id="wd-website-url"
+                defaultChecked={true}
               />
               <label htmlFor="wd-website-url" className="form-check-label">
                 Website URL
@@ -151,19 +153,24 @@ export default function AssignmentEditor() {
               </label>
             </div>
           </div>
+        </div>
+      </div>
 
-          <div className="mb-3">
-            <label className="form-label">Assign to</label>
-            <input
-              id="wd-assign"
-              value="Everyone"
-              className="form-control"
-              readOnly
-            />
-          </div>
+      {/* Assign Field */}
+      <div className="md-3">
+        <div className="border p-3 mb-3">
+          <label htmlFor="wd-assign" className="form-label">
+            Assign to
+          </label>
+          <input
+            id="wd-assign"
+            value="Everyone"
+            className="form-control"
+            readOnly
+          />
 
-          <div className="row mb-3">
-            <div className="col-md-6">
+          <div className="md-3">
+            <div className="md-3">
               <label htmlFor="wd-due" className="form-label">
                 Due
               </label>
@@ -175,7 +182,9 @@ export default function AssignmentEditor() {
                 readOnly
               />
             </div>
-            <div className="col-md-3">
+          </div>
+          <div className="row mb-3">
+            <div className="col-md-6">
               <label htmlFor="wd-available" className="form-label">
                 Available from
               </label>
@@ -186,7 +195,7 @@ export default function AssignmentEditor() {
                 className="form-control"
               />
             </div>
-            <div className="col-md-3">
+            <div className="col-md-6">
               <label htmlFor="wd-until" className="form-label">
                 Until
               </label>
@@ -198,22 +207,22 @@ export default function AssignmentEditor() {
               />
             </div>
           </div>
-
-          <div className="d-flex justify-content-end">
-            <Link
-              to={`/Kanbas/Courses/${cid}/Assignments`}
-              className="btn btn-secondary me-2"
-            >
-              Cancel
-            </Link>
-            <Link
-              to={`/Kanbas/Courses/${cid}/Assignments`}
-              className="btn btn-danger"
-            >
-              Save
-            </Link>
-          </div>
         </div>
+      </div>
+
+      <div className="d-flex justify-content-end">
+        <Link
+          to={`/Kanbas/Courses/${cid}/Assignments`}
+          className="btn btn-secondary me-2"
+        >
+          Cancel
+        </Link>
+        <Link
+          to={`/Kanbas/Courses/${cid}/Assignments`}
+          className="btn btn-danger"
+        >
+          Save
+        </Link>
       </div>
     </div>
   );
