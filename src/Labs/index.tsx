@@ -32,6 +32,15 @@ export default function Labs() {
           code for a3
         </a>
       </h2>
+
+      <h2>
+        <a
+          href="https://github.com/chenchen218/Chen-react-web-app/tree/a3"
+          target="_blank"
+        >
+          code for a4
+        </a>
+      </h2>
       <h2>
         <a
           href="https://a2--kanbas-react-web-app-cs5610-chen.netlify.app/#/Kanbas/Dashboard"
