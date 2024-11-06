@@ -9,6 +9,7 @@ export default function ObjectStateVariable() {
         defaultValue={person.name}
         onChange={(e) => setPerson({ ...person, name: e.target.value })}
       />
+      <br />
       <input
         defaultValue={person.age}
         onChange={(e) =>
