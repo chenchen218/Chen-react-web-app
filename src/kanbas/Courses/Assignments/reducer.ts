@@ -1,42 +1,45 @@
-import { assignments } from "../../Database"; // Ensure the path and import name are correct
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import { assignments } from "../../Database";
 
-interface Assignment {
-  _id: string;
-  title: string;
-  course: string;
-  description: string;
-  dueDate: string;
-  points: number;
-  availableFrom: string;
-  untilDate: string;
-}
-
-// Initial state
-const initialState: { assignments: Assignment[] } = {
-  assignments: [], // Make sure this is an array, not undefined
+const initialState = {
+  assignments: assignments,
 };
 
-// Create the assignments slice
 const assignmentsSlice = createSlice({
   name: "assignments",
   initialState,
   reducers: {
-    addAssignment: (state, action: PayloadAction<Assignment>) => {
-      const newAssignment: Assignment = {
-        ...action.payload,
+    addAssignment: (state, { payload }) => {
+      const newAssignment = {
         _id: new Date().getTime().toString(),
+        title: payload.title,
+        course: payload.course,
+        description: payload.description || "",
+        dueDate: payload.dueDate,
+        points: parseInt(payload.points),
+        availableFrom: payload.availableFrom,
+        untilDate: payload.untilDate,
       };
-      state.assignments.push(newAssignment);
+      state.assignments = [...state.assignments, newAssignment];
     },
-    deleteAssignment: (state, action: PayloadAction<string>) => {
+    deleteAssignment: (state, { payload: assignmentId }) => {
       state.assignments = state.assignments.filter(
-        (assignment) => assignment._id !== action.payload
+        (assignment) => assignment._id !== assignmentId
       );
     },
-    updateAssignment: (state, action: PayloadAction<Assignment>) => {
+    updateAssignment: (state, { payload }) => {
       state.assignments = state.assignments.map((assignment) =>
-        assignment._id === action.payload._id ? action.payload : assignment
+        assignment._id === payload._id
+          ? {
+              ...assignment,
+              title: payload.title,
+              description: payload.description,
+              points: parseInt(payload.points),
+              dueDate: payload.dueDate,
+              availableFrom: payload.availableFrom,
+              untilDate: payload.untilDate,
+            }
+          : assignment
       );
     },
   },
