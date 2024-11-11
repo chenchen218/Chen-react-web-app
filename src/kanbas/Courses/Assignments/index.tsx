@@ -6,6 +6,7 @@ import { FaPlus, FaBook, FaTrash } from "react-icons/fa";
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteAssignment } from "./reducer";
+import FacultyOnly from "../../Account/FacultyRounte";
 
 // Define Assignment type
 interface Assignment {
@@ -59,13 +60,15 @@ export default function Assignments() {
   return (
     <div id="wd-assignments" className="px-4">
       <AssignmentSearchBar />
-      <button
-        className="btn btn-lg btn-danger float-end"
-        onClick={() => navigate(`/Kanbas/Courses/${cid}/Assignments/new`)}
-      >
-        <FaPlus className="me-2" />
-        Add Assignment
-      </button>
+      <FacultyOnly>
+        <button
+          className="btn btn-lg btn-danger float-end"
+          onClick={() => navigate(`/Kanbas/Courses/${cid}/Assignments/new`)}
+        >
+          <FaPlus className="me-2" />
+          Add Assignment
+        </button>
+      </FacultyOnly>
       <br />
       <br />
       <br />
@@ -108,12 +111,14 @@ export default function Assignments() {
                     </div>
                     <div className="d-flex align-items-center">
                       <AssignmentCheck />
-                      <button
-                        className="btn btn-link text-danger ms-2"
-                        onClick={() => handleDelete(assignment._id)}
-                      >
-                        <FaTrash />
-                      </button>
+                      <FacultyOnly>
+                        <button
+                          className="btn btn-link text-danger ms-2"
+                          onClick={() => handleDelete(assignment._id)}
+                        >
+                          <FaTrash />
+                        </button>
+                      </FacultyOnly>
                     </div>
                   </div>
                   <div className="text-muted ms-5">

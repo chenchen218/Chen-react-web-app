@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addAssignment, updateAssignment } from "./reducer";
+import FacultyOnly from "../../Account/FacultyRounte";
 
 export default function AssignmentEditor() {
   const { cid, aid } = useParams();
@@ -308,18 +309,20 @@ export default function AssignmentEditor() {
         </div>
 
         <hr />
-        <div className="d-flex justify-content-end">
-          <button
-            type="button"
-            onClick={() => navigate(`/Kanbas/Courses/${cid}/Assignments`)}
-            className="btn btn-secondary me-2"
-          >
-            Cancel
-          </button>
-          <button type="submit" className="btn btn-danger">
-            Save
-          </button>
-        </div>
+        <FacultyOnly>
+          <div className="d-flex justify-content-end">
+            <button
+              type="button"
+              onClick={() => navigate(`/Kanbas/Courses/${cid}/Assignments`)}
+              className="btn btn-secondary me-2"
+            >
+              Cancel
+            </button>
+            <button type="submit" className="btn btn-danger">
+              Save
+            </button>
+          </div>
+        </FacultyOnly>
       </form>
     </div>
   );

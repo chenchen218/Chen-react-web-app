@@ -78,7 +78,7 @@ export default function Dashboard({
         </button>
       )}
       <hr />
-      {currentUser?.role === "faculty" && (
+      {currentUser?.role === "FACULTY" && (
         <>
           <h5>
             New Course
@@ -127,7 +127,7 @@ export default function Dashboard({
               <div className="card rounded-3 overflow-hidden">
                 <Link
                   to={
-                    currentUser?.role === "faculty" || isEnrolled(course._id)
+                    currentUser?.role === "FACULTY" || isEnrolled(course._id)
                       ? `/Kanbas/Courses/${course._id}/Home`
                       : "#"
                   }
@@ -135,7 +135,7 @@ export default function Dashboard({
                   onClick={(e) => {
                     if (
                       !(
-                        currentUser?.role === "faculty" ||
+                        currentUser?.role === "FACULTY" ||
                         isEnrolled(course._id)
                       )
                     ) {
@@ -160,7 +160,7 @@ export default function Dashboard({
                       {course.description}
                     </p>
 
-                    {currentUser?.role === "faculty" ? (
+                    {currentUser?.role === "FACULTY" ? (
                       <>
                         <button className="btn btn-primary">Go</button>
                         <button
