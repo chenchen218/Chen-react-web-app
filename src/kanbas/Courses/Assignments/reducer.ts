@@ -1,7 +1,24 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { assignments } from "../../Database";
 
-const initialState = {
+// Define types
+interface Assignment {
+  _id: string;
+  title: string;
+  course: string;
+  description: string;
+  dueDate: string;
+  points: number;
+  availableFrom: string;
+  untilDate: string;
+}
+
+interface AssignmentsState {
+  assignments: Assignment[];
+}
+
+// Type the initial state
+const initialState: AssignmentsState = {
   assignments: assignments,
 };
 
@@ -9,35 +26,31 @@ const assignmentsSlice = createSlice({
   name: "assignments",
   initialState,
   reducers: {
-    addAssignment: (state, { payload }) => {
-      const newAssignment = {
+    addAssignment: (state, action: PayloadAction<Omit<Assignment, "_id">>) => {
+      const newAssignment: Assignment = {
         _id: new Date().getTime().toString(),
-        title: payload.title,
-        course: payload.course,
-        description: payload.description || "",
-        dueDate: payload.dueDate,
-        points: parseInt(payload.points),
-        availableFrom: payload.availableFrom,
-        untilDate: payload.untilDate,
+        ...action.payload,
+        points: parseInt(action.payload.points.toString()),
       };
-      state.assignments = [...state.assignments, newAssignment];
+      console.log("Adding assignment in reducer:", newAssignment);
+      state.assignments.push(newAssignment);
     },
-    deleteAssignment: (state, { payload: assignmentId }) => {
+    deleteAssignment: (state, action: PayloadAction<string>) => {
       state.assignments = state.assignments.filter(
-        (assignment) => assignment._id !== assignmentId
+        (assignment) => assignment._id !== action.payload
       );
     },
-    updateAssignment: (state, { payload }) => {
+    updateAssignment: (state, action: PayloadAction<Assignment>) => {
       state.assignments = state.assignments.map((assignment) =>
-        assignment._id === payload._id
+        assignment._id === action.payload._id
           ? {
               ...assignment,
-              title: payload.title,
-              description: payload.description,
-              points: parseInt(payload.points),
-              dueDate: payload.dueDate,
-              availableFrom: payload.availableFrom,
-              untilDate: payload.untilDate,
+              title: action.payload.title,
+              description: action.payload.description,
+              points: parseInt(action.payload.points.toString()),
+              dueDate: action.payload.dueDate,
+              availableFrom: action.payload.availableFrom,
+              untilDate: action.payload.untilDate,
             }
           : assignment
       );
@@ -48,3 +61,6 @@ const assignmentsSlice = createSlice({
 export const { addAssignment, deleteAssignment, updateAssignment } =
   assignmentsSlice.actions;
 export default assignmentsSlice.reducer;
+
+// Export types for use in components
+export type { Assignment, AssignmentsState };

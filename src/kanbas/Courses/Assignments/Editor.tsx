@@ -1,17 +1,39 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addAssignment, updateAssignment } from "./reducer";
 import FacultyOnly from "../../Account/FacultyRounte";
+
+// Define the types
+interface Assignment {
+  _id: string;
+  title: string;
+  course: string;
+  description: string;
+  dueDate: string;
+  points: number;
+  availableFrom: string;
+  untilDate: string;
+}
+
+interface RootState {
+  assignmentsReducer: {
+    assignments: Assignment[];
+  };
+}
 
 export default function AssignmentEditor() {
   const { cid, aid } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const assignment = useSelector((state: any) =>
+  // Add loading state
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Use proper typing for the selector
+  const assignment = useSelector((state: RootState) =>
     state.assignmentsReducer.assignments.find(
-      (assignment: any) => assignment._id === aid
+      (assignment) => assignment._id === aid
     )
   );
 
@@ -51,17 +73,45 @@ export default function AssignmentEditor() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (aid) {
-      dispatch(updateAssignment({ ...formData, _id: aid }));
-    } else {
-      dispatch(addAssignment(formData));
+    setIsSubmitting(true);
+
+    try {
+      // Validate required fields
+      if (!formData.title || !formData.dueDate) {
+        alert("Please fill in all required fields");
+        return;
+      }
+
+      const assignmentData = {
+        ...formData,
+        points: parseInt(formData.points),
+        course: cid || "",
+      };
+
+      if (aid) {
+        dispatch(
+          updateAssignment({
+            ...assignmentData,
+            _id: aid,
+          })
+        );
+        console.log("Updated assignment:", assignmentData);
+      } else {
+        dispatch(addAssignment(assignmentData));
+        console.log("Added new assignment:", assignmentData);
+      }
+
+      setTimeout(() => {
+        navigate(`/Kanbas/Courses/${cid}/Assignments`);
+      }, 100);
+    } catch (error) {
+      console.error("Error saving assignment:", error);
+      alert("Error saving assignment. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
-    // Add a small delay before navigation
-    setTimeout(() => {
-      navigate(`/Kanbas/Courses/${cid}/Assignments`);
-    }, 100);
   };
 
   return (

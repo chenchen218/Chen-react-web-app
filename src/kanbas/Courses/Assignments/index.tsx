@@ -3,10 +3,11 @@ import AssignmentCheck from "./AssignmentCheckButton";
 import AssignmentSearchBar from "./AssignmentSearch";
 import { BsGripVertical } from "react-icons/bs";
 import { FaPlus, FaBook, FaTrash } from "react-icons/fa";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteAssignment } from "./reducer";
+import { addAssignment, deleteAssignment } from "./reducer";
 import FacultyOnly from "../../Account/FacultyRounte";
+import AddButtonEditor from "./addButtonEditor";
 
 // Define Assignment type
 interface Assignment {
@@ -37,12 +38,20 @@ export default function Assignments() {
     string | null
   >(null);
 
-  // Use typed selector
-  const assignments = useSelector((state: RootState) =>
-    state.assignmentsReducer.assignments.filter(
+  // Use typed selector with debug logs
+  const assignments = useSelector((state: RootState) => {
+    console.log("Redux State:", state.assignmentsReducer); // Debug log
+    return state.assignmentsReducer.assignments.filter(
       (assignment) => assignment.course === cid
-    )
-  );
+    );
+  });
+
+  console.log("Filtered Assignments:", assignments); // Debug log
+
+  // Add this debug log
+  useEffect(() => {
+    console.log("Current Redux State:", assignments);
+  }, [assignments]);
 
   const handleDelete = (assignmentId: string) => {
     setSelectedAssignmentId(assignmentId);
@@ -57,13 +66,31 @@ export default function Assignments() {
     }
   };
 
+  // Handler for adding new assignment (just for testing)
+  const handleAddTest = () => {
+    const newAssignment: Omit<Assignment, "_id"> = {
+      title: "Test Assignment",
+      course: cid!,
+      description: "Test Description",
+      dueDate: "2024-05-20",
+      points: 100,
+      availableFrom: "2024-05-01",
+      untilDate: "2024-05-30",
+    };
+
+    console.log("Adding assignment with course ID:", cid);
+    console.log("New assignment data:", newAssignment);
+    dispatch(addAssignment(newAssignment));
+  };
+
   return (
     <div id="wd-assignments" className="px-4">
       <AssignmentSearchBar />
       <FacultyOnly>
         <button
           className="btn btn-lg btn-danger float-end"
-          onClick={() => navigate(`/Kanbas/Courses/${cid}/Assignments/new`)}
+          data-bs-toggle="modal"
+          data-bs-target="#assignmentEditorModal"
         >
           <FaPlus className="me-2" />
           Add Assignment
@@ -85,7 +112,7 @@ export default function Assignments() {
           </div>
 
           <ul className="wd-assignment list-group rounded-0">
-            {assignments.length > 0 ? (
+            {assignments && assignments.length > 0 ? (
               assignments.map((assignment) => (
                 <li
                   key={assignment._id}
@@ -124,14 +151,17 @@ export default function Assignments() {
                   <div className="text-muted ms-5">
                     <span className="text-danger">Multiple Modules</span> |{" "}
                     <strong>Not available until</strong>{" "}
-                    {assignment.availableFrom} |<br />
+                    {assignment.availableFrom} |
+                    <br />
                     <strong>Due:</strong> {assignment.dueDate} at 11:59pm |{" "}
                     <strong>Points:</strong> {assignment.points} pts
                   </div>
                 </li>
               ))
             ) : (
-              <li>No assignments available for this course</li>
+              <li className="list-group-item">
+                No assignments available for this course
+              </li>
             )}
           </ul>
         </li>
@@ -177,6 +207,8 @@ export default function Assignments() {
           </div>
         </div>
       )}
+      {/* Add the Editor modal */}
+      <AddButtonEditor />
     </div>
   );
 }
