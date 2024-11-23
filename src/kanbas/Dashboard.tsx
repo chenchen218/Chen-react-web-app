@@ -28,14 +28,14 @@ export default function Dashboard({
   // Change the useSelector line to:
   const currentUser = useSelector(
     (state: any) => state.accountReducer.currentUser
-  ) || { role: "student", _id: "1" };
+  ) || { role: "STUDENT", _id: "1" };
   const { enrollments, showAllCourses } = useSelector(
     (state: any) => state.enrollmentsReducer
   );
 
   // Filter courses based on enrollment status if user is student and not showing all courses
   const displayedCourses =
-    currentUser?.role === "student" && !showAllCourses
+    currentUser?.role === "STUDENT" && !showAllCourses
       ? courses.filter((course) =>
           enrollments.some(
             (enrollment: any) =>
@@ -68,15 +68,17 @@ export default function Dashboard({
 
   return (
     <div id="wd-dashboard">
-      <h1 id="wd-dashboard-title">Dashboard</h1>
-      {currentUser?.role === "student" && (
-        <button
-          className="btn btn-primary float-end"
-          onClick={() => dispatch(toggleShowAllCourses())}
-        >
-          {showAllCourses ? "Show My Courses" : "Enrollments"}
-        </button>
-      )}
+      <div className="d-flex justify-content-between align-items-center">
+        <h1 id="wd-dashboard-title">Dashboard</h1>
+        {currentUser?.role === "STUDENT" && (
+          <button
+            className="btn btn-primary"
+            onClick={() => dispatch(toggleShowAllCourses())}
+          >
+            {showAllCourses ? "Show My Courses" : "Enrollments"}
+          </button>
+        )}
+      </div>
       <hr />
       {currentUser?.role === "FACULTY" && (
         <>
