@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import * as db from "./Database";
 import {
   toggleShowAllCourses,
   enrollInCourse,
@@ -24,8 +23,6 @@ export default function Dashboard({
   updateCourse: () => void;
 }) {
   const dispatch = useDispatch();
-  // In Dashboard.tsx
-  // Change the useSelector line to:
   const currentUser = useSelector(
     (state: any) => state.accountReducer.currentUser
   ) || { role: "STUDENT", _id: "1" };
@@ -33,17 +30,7 @@ export default function Dashboard({
     (state: any) => state.enrollmentsReducer
   );
 
-  // Filter courses based on enrollment status if user is student and not showing all courses
-  const displayedCourses =
-    currentUser?.role === "STUDENT" && !showAllCourses
-      ? courses.filter((course) =>
-          enrollments.some(
-            (enrollment: any) =>
-              enrollment.user === currentUser._id &&
-              enrollment.course === course._id
-          )
-        )
-      : courses;
+  const displayedCourses = courses;
 
   // Check if user is enrolled in a specific course
   const isEnrolled = (courseId: string) => {
