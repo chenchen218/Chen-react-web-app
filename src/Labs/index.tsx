@@ -3,6 +3,7 @@ import Lab1 from "./Lab1";
 import Lab2 from "./Lab2";
 import Lab3 from "./Lab3";
 import Lab4 from "./Lab4";
+import Lab5 from "./Lab5";
 import store from "./Lab4/store";
 import { Provider } from "react-redux";
 import TOC from "./TOC";
@@ -47,6 +48,14 @@ export default function Labs() {
         </h2>
         <h2>
           <a
+            href="https://github.com/chenchen218/Chen-react-web-app/tree/a5"
+            target="_blank"
+          >
+            code for a5
+          </a>
+        </h2>
+        <h2>
+          <a
             href="https://a2--kanbas-react-web-app-cs5610-chen.netlify.app/#/Kanbas/Dashboard"
             target="_blank"
           >
@@ -59,7 +68,8 @@ export default function Labs() {
           <Route path="Lab1" element={<Lab1 />} />
           <Route path="Lab2" element={<Lab2 />} />
           <Route path="Lab3/*" element={<Lab3 />} />
-          <Route path="Lab4" element={<Lab4 />} />
+          <Route path="Lab4/*" element={<Lab4 />} />
+          <Route path="Lab5/*" element={<Lab5 />} />
         </Routes>
       </div>
     </Provider>
