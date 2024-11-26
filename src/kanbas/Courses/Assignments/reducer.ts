@@ -30,9 +30,9 @@ const assignmentsSlice = createSlice({
       const newAssignment: Assignment = {
         _id: new Date().getTime().toString(),
         ...action.payload,
-        points: parseInt(action.payload.points.toString()),
+        points: Number(action.payload.points),
+        course: action.payload.course,
       };
-      console.log("Adding assignment in reducer:", newAssignment);
       state.assignments.push(newAssignment);
     },
     deleteAssignment: (state, action: PayloadAction<string>) => {

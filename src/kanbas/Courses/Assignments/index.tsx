@@ -7,7 +7,8 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addAssignment, deleteAssignment } from "./reducer";
 import FacultyOnly from "../../Account/FacultyRounte";
-import AddButtonEditor from "./addButtonEditor";
+
+import AssignmentsControlButton from "./AssignmentControlButton";
 
 // Define Assignment type
 interface Assignment {
@@ -87,14 +88,7 @@ export default function Assignments() {
     <div id="wd-assignments" className="px-4">
       <AssignmentSearchBar />
       <FacultyOnly>
-        <button
-          className="btn btn-lg btn-danger float-end"
-          data-bs-toggle="modal"
-          data-bs-target="#assignmentEditorModal"
-        >
-          <FaPlus className="me-2" />
-          Add Assignment
-        </button>
+        <AssignmentsControlButton />
       </FacultyOnly>
       <br />
       <br />
@@ -207,8 +201,6 @@ export default function Assignments() {
           </div>
         </div>
       )}
-      {/* Add the Editor modal */}
-      <AddButtonEditor />
     </div>
   );
 }

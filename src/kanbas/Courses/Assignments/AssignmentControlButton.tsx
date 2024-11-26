@@ -5,12 +5,15 @@ export default function AssignmentsControlButton() {
   const navigate = useNavigate();
   const { cid } = useParams();
 
+  const handleAddAssignment = () => {
+    navigate(`/Kanbas/Courses/${cid}/Assignments/new`);
+  };
   return (
     <div id="wd-assignments-controls" className="text-nowrap">
       <button
         id="wd-add-assignments-btn"
         className="btn btn-lg btn-danger me-1 float-end"
-        onClick={() => navigate(`/Kanbas/Courses/${cid}/Assignments/new`)}
+        onClick={handleAddAssignment}
       >
         <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
         Assignment

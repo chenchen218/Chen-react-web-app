@@ -30,6 +30,18 @@ export default function AssignmentEditor() {
   // Add loading state
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const initialFormData = {
+    title: "",
+    description: "",
+    points: "100",
+    dueDate: new Date().toISOString().split("T")[0],
+    availableFrom: new Date().toISOString().split("T")[0],
+    untilDate: new Date().toISOString().split("T")[0],
+    course: cid || "",
+  };
+
+  const [formData, setFormData] = useState(initialFormData);
+
   // Use proper typing for the selector
   const assignment = useSelector((state: RootState) =>
     state.assignmentsReducer.assignments.find(
@@ -37,25 +49,15 @@ export default function AssignmentEditor() {
     )
   );
 
-  const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    points: "100",
-    dueDate: "",
-    availableFrom: "",
-    untilDate: "",
-    course: cid,
-  });
-
   useEffect(() => {
     if (assignment) {
       setFormData({
-        title: assignment.title || "",
-        description: assignment.description || "",
+        title: assignment.title,
+        description: assignment.description,
         points: assignment.points.toString(),
-        dueDate: assignment.dueDate || "",
-        availableFrom: assignment.availableFrom || "",
-        untilDate: assignment.untilDate || "",
+        dueDate: assignment.dueDate,
+        availableFrom: assignment.availableFrom,
+        untilDate: assignment.untilDate,
         course: assignment.course,
       });
     }
@@ -72,43 +74,25 @@ export default function AssignmentEditor() {
       [name]: value,
     }));
   };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
-      // Validate required fields
-      if (!formData.title || !formData.dueDate) {
-        alert("Please fill in all required fields");
-        return;
-      }
-
       const assignmentData = {
         ...formData,
-        points: parseInt(formData.points),
-        course: cid || "",
+        points: Number(formData.points),
       };
 
       if (aid) {
-        dispatch(
-          updateAssignment({
-            ...assignmentData,
-            _id: aid,
-          })
-        );
-        console.log("Updated assignment:", assignmentData);
+        dispatch(updateAssignment({ ...assignmentData, _id: aid }));
       } else {
         dispatch(addAssignment(assignmentData));
-        console.log("Added new assignment:", assignmentData);
       }
 
-      setTimeout(() => {
-        navigate(`/Kanbas/Courses/${cid}/Assignments`);
-      }, 100);
+      navigate(`/Kanbas/Courses/${cid}/Assignments`);
     } catch (error) {
       console.error("Error saving assignment:", error);
-      alert("Error saving assignment. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
