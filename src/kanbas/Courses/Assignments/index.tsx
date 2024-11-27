@@ -5,8 +5,9 @@ import { BsGripVertical } from "react-icons/bs";
 import { FaPlus, FaBook, FaTrash } from "react-icons/fa";
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addAssignment, deleteAssignment } from "./reducer";
+import { addAssignment, deleteAssignment, setAssignments } from "./reducer";
 import FacultyOnly from "../../Account/FacultyRounte";
+import * as assignmentsClient from "./client";
 
 import AssignmentsControlButton from "./AssignmentControlButton";
 
@@ -39,6 +40,9 @@ export default function Assignments() {
     string | null
   >(null);
 
+  // NEW: Add loading state for initial data fetch
+  const [loading, setLoading] = useState(true);
+
   // Use typed selector with debug logs
   const assignments = useSelector((state: RootState) => {
     console.log("Redux State:", state.assignmentsReducer); // Debug log
@@ -49,39 +53,60 @@ export default function Assignments() {
 
   console.log("Filtered Assignments:", assignments); // Debug log
 
-  // Add this debug log
   useEffect(() => {
-    console.log("Current Redux State:", assignments);
-  }, [assignments]);
+    const fetchAssignments = async () => {
+      try {
+        // Debug log
+        console.log(
+          "Component - Starting to fetch assignments for course:",
+          cid
+        );
+        setLoading(true);
+        const assignments = await assignmentsClient.findAssignmentsForCourse(
+          cid!
+        );
+        // Debug log
+        console.log(
+          "Component - Successfully fetched assignments:",
+          assignments
+        );
+        dispatch(setAssignments(assignments));
+      } catch (error) {
+        console.error("Error fetching assignments:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
+    fetchAssignments();
+  }, [cid, dispatch]);
+
+  // UPDATED: handleDelete to use API
   const handleDelete = (assignmentId: string) => {
+    // Debug log
+    console.log("Component - Starting delete for assignment:", assignmentId);
     setSelectedAssignmentId(assignmentId);
     setShowConfirmDelete(true);
   };
 
-  const confirmDelete = () => {
+  // UPDATED: confirmDelete to use API
+  const confirmDelete = async () => {
     if (selectedAssignmentId) {
-      dispatch(deleteAssignment(selectedAssignmentId));
-      setShowConfirmDelete(false);
-      setSelectedAssignmentId(null);
+      try {
+        console.log(
+          "Component - Confirming delete for assignment:",
+          selectedAssignmentId
+        );
+        await assignmentsClient.deleteAssignment(selectedAssignmentId);
+        console.log("Component - Successfully deleted assignment");
+        dispatch(deleteAssignment(selectedAssignmentId));
+        setShowConfirmDelete(false);
+        setSelectedAssignmentId(null);
+      } catch (error) {
+        console.error("Error deleting assignment:", error);
+        alert("Failed to delete assignment. Please try again.");
+      }
     }
-  };
-
-  // Handler for adding new assignment (just for testing)
-  const handleAddTest = () => {
-    const newAssignment: Omit<Assignment, "_id"> = {
-      title: "Test Assignment",
-      course: cid!,
-      description: "Test Description",
-      dueDate: "2024-05-20",
-      points: 100,
-      availableFrom: "2024-05-01",
-      untilDate: "2024-05-30",
-    };
-
-    console.log("Adding assignment with course ID:", cid);
-    console.log("New assignment data:", newAssignment);
-    dispatch(addAssignment(newAssignment));
   };
 
   return (
@@ -93,73 +118,78 @@ export default function Assignments() {
       <br />
       <br />
       <br />
-      <ul id="wd-assignments-titles" className="list-group rounded-0">
-        <li className="wd-assignments-title list-group-item p-0 fs-5 border-gray">
-          <div className="wd-title p-3 ps-2 bg-secondary d-flex justify-content-between align-items-center">
-            <div className="d-flex align-items-center">
-              <BsGripVertical className="me-3 fs-3" />
-              ASSIGNMENTS
+      {/* NEW: Show loading state */}
+      {loading ? (
+        <div>Loading assignments...</div>
+      ) : (
+        <ul id="wd-assignments-titles" className="list-group rounded-0">
+          <li className="wd-assignments-title list-group-item p-0 fs-5 border-gray">
+            <div className="wd-title p-3 ps-2 bg-secondary d-flex justify-content-between align-items-center">
+              <div className="d-flex align-items-center">
+                <BsGripVertical className="me-3 fs-3" />
+                ASSIGNMENTS
+              </div>
+              <span className="float-end badge rounded-pill text-bg-primary">
+                40% of Total
+              </span>
             </div>
-            <span className="float-end badge rounded-pill text-bg-primary">
-              40% of Total
-            </span>
-          </div>
 
-          <ul className="wd-assignment list-group rounded-0">
-            {assignments && assignments.length > 0 ? (
-              assignments.map((assignment) => (
-                <li
-                  key={assignment._id}
-                  className="wd-assignment list-group-item p-4"
-                  style={{
-                    paddingLeft: "20px",
-                    border: "1px solid #ddd",
-                    borderLeft: "4px solid green",
-                    marginBottom: "0",
-                    borderTop: "none",
-                  }}
-                >
-                  <div className="d-flex justify-content-between align-items-center mb-3">
-                    <div className="d-flex align-items-center">
-                      <BsGripVertical className="me-3 fs-3" />
-                      <FaBook className="me-3 text-success" />
-                      <Link
-                        className="wd-assignment-link fs-5"
-                        to={`/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}
-                      >
-                        {assignment.title}
-                      </Link>
-                    </div>
-                    <div className="d-flex align-items-center">
-                      <AssignmentCheck />
-                      <FacultyOnly>
-                        <button
-                          className="btn btn-link text-danger ms-2"
-                          onClick={() => handleDelete(assignment._id)}
+            <ul className="wd-assignment list-group rounded-0">
+              {assignments && assignments.length > 0 ? (
+                assignments.map((assignment) => (
+                  <li
+                    key={assignment._id}
+                    className="wd-assignment list-group-item p-4"
+                    style={{
+                      paddingLeft: "20px",
+                      border: "1px solid #ddd",
+                      borderLeft: "4px solid green",
+                      marginBottom: "0",
+                      borderTop: "none",
+                    }}
+                  >
+                    <div className="d-flex justify-content-between align-items-center mb-3">
+                      <div className="d-flex align-items-center">
+                        <BsGripVertical className="me-3 fs-3" />
+                        <FaBook className="me-3 text-success" />
+                        <Link
+                          className="wd-assignment-link fs-5"
+                          to={`/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}
                         >
-                          <FaTrash />
-                        </button>
-                      </FacultyOnly>
+                          {assignment.title}
+                        </Link>
+                      </div>
+                      <div className="d-flex align-items-center">
+                        <AssignmentCheck />
+                        <FacultyOnly>
+                          <button
+                            className="btn btn-link text-danger ms-2"
+                            onClick={() => handleDelete(assignment._id)}
+                          >
+                            <FaTrash />
+                          </button>
+                        </FacultyOnly>
+                      </div>
                     </div>
-                  </div>
-                  <div className="text-muted ms-5">
-                    <span className="text-danger">Multiple Modules</span> |{" "}
-                    <strong>Not available until</strong>{" "}
-                    {assignment.availableFrom} |
-                    <br />
-                    <strong>Due:</strong> {assignment.dueDate} at 11:59pm |{" "}
-                    <strong>Points:</strong> {assignment.points} pts
-                  </div>
+                    <div className="text-muted ms-5">
+                      <span className="text-danger">Multiple Modules</span> |{" "}
+                      <strong>Not available until</strong>{" "}
+                      {assignment.availableFrom} |
+                      <br />
+                      <strong>Due:</strong> {assignment.dueDate} at 11:59pm |{" "}
+                      <strong>Points:</strong> {assignment.points} pts
+                    </div>
+                  </li>
+                ))
+              ) : (
+                <li className="list-group-item">
+                  No assignments available for this course
                 </li>
-              ))
-            ) : (
-              <li className="list-group-item">
-                No assignments available for this course
-              </li>
-            )}
-          </ul>
-        </li>
-      </ul>
+              )}
+            </ul>
+          </li>
+        </ul>
+      )}
 
       {/* Delete Confirmation Modal */}
       {showConfirmDelete && (

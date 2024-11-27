@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import {
   toggleShowAllCourses,
   enrollInCourse,
   unenrollFromCourse,
+  setEnrollments,
 } from "./Courses/Enrollments/reducer";
+import * as enrollmentsClient from "./Courses/Enrollments/clients";
 
 export default function Dashboard({
   courses,
@@ -40,16 +42,46 @@ export default function Dashboard({
     );
   };
 
-  // Handle enrollment toggle
-  const handleEnrollmentToggle = (
+  // Add useEffect to fetch enrollments
+  useEffect(() => {
+    const fetchEnrollments = async () => {
+      try {
+        console.log("Dashboard - Fetching enrollments");
+        const allEnrollments = await enrollmentsClient.findAllEnrollments();
+        console.log("Dashboard - Enrollments fetched:", allEnrollments);
+        dispatch(setEnrollments(allEnrollments));
+      } catch (error) {
+        console.error("Error fetching enrollments:", error);
+      }
+    };
+    fetchEnrollments();
+  }, [dispatch]);
+
+  // Update handleEnrollmentToggle
+  const handleEnrollmentToggle = async (
     courseId: string,
     event: React.MouseEvent
   ) => {
     event.preventDefault();
-    if (isEnrolled(courseId)) {
-      dispatch(unenrollFromCourse({ userId: currentUser._id, courseId }));
-    } else {
-      dispatch(enrollInCourse({ userId: currentUser._id, courseId }));
+    try {
+      if (isEnrolled(courseId)) {
+        console.log("Dashboard - Starting unenroll for course:", courseId);
+        await enrollmentsClient.unenrollFromCourse(currentUser._id, courseId);
+        console.log("Dashboard - Successfully unenrolled from server");
+        dispatch(unenrollFromCourse({ userId: currentUser._id, courseId }));
+        console.log("Dashboard - Unenrollment dispatched");
+      } else {
+        console.log("Dashboard - Starting enroll for course:", courseId);
+        const enrollment = await enrollmentsClient.enrollInCourse(
+          currentUser._id,
+          courseId
+        );
+        console.log("Dashboard - Enrollment received from server:", enrollment);
+        dispatch(enrollInCourse(enrollment));
+        console.log("Dashboard - Enrollment dispatched");
+      }
+    } catch (error) {
+      console.error("Error toggling enrollment:", error);
     }
   };
 

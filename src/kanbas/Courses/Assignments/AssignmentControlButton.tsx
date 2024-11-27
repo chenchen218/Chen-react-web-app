@@ -20,7 +20,7 @@ export default function AssignmentsControlButton() {
       </button>
 
       <button
-        id="wd-add-assignments-btn"
+        id="wd-add-group-btn"
         className="btn btn-lg btn-secondary me-1 float-end"
       >
         <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />

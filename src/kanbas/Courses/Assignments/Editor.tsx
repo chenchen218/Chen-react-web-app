@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addAssignment, updateAssignment } from "./reducer";
 import FacultyOnly from "../../Account/FacultyRounte";
+import * as assignmentsClient from "./client";
 
 // Define the types
 interface Assignment {
@@ -74,25 +75,45 @@ export default function AssignmentEditor() {
       [name]: value,
     }));
   };
+  // UPDATED: handleSubmit to use API
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
+      if (!formData.title || !formData.dueDate) {
+        alert("Please fill in all required fields");
+        return;
+      }
+
       const assignmentData = {
         ...formData,
-        points: Number(formData.points),
+        points: parseInt(formData.points),
+        course: cid || "",
       };
 
       if (aid) {
-        dispatch(updateAssignment({ ...assignmentData, _id: aid }));
+        // Update existing assignment using API
+        const updatedAssignment = await assignmentsClient.updateAssignment({
+          ...assignmentData,
+          _id: aid,
+        });
+        dispatch(updateAssignment(updatedAssignment));
+        console.log("Updated assignment:", updatedAssignment);
       } else {
-        dispatch(addAssignment(assignmentData));
+        // Create new assignment using API
+        const newAssignment = await assignmentsClient.createAssignment(
+          cid!,
+          assignmentData
+        );
+        dispatch(addAssignment(newAssignment));
+        console.log("Added new assignment:", newAssignment);
       }
 
       navigate(`/Kanbas/Courses/${cid}/Assignments`);
     } catch (error) {
       console.error("Error saving assignment:", error);
+      alert("Error saving assignment. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
