@@ -13,6 +13,7 @@ export default function Dashboard({
   courses,
   course,
   setCourse,
+  setCourses,
   addNewCourse,
   deleteCourse,
   updateCourse,
@@ -20,6 +21,7 @@ export default function Dashboard({
   courses: any[];
   course: any;
   setCourse: (course: any) => void;
+  setCourses: (courses: any[]) => void;
   addNewCourse: () => void;
   deleteCourse: (courseId: string) => void;
   updateCourse: () => void;
@@ -32,7 +34,45 @@ export default function Dashboard({
     (state: any) => state.enrollmentsReducer
   );
 
-  const displayedCourses = courses;
+  // Replace your current displayedCourses with this:
+  const displayedCourses = React.useMemo(() => {
+    console.log("Dashboard - Computing displayed courses:", {
+      userRole: currentUser?.role,
+      userId: currentUser?._id, // Add this to debug
+      showAllCourses,
+      totalCourses: courses.length,
+      totalEnrollments: enrollments.length,
+      enrollments: enrollments, // Add this to see actual enrollment data
+    });
+
+    // Always show all courses for faculty
+    if (currentUser?.role === "FACULTY") {
+      console.log("Dashboard - Faculty view: returning all courses");
+      return courses;
+    }
+
+    // For students, check showAllCourses flag
+    if (showAllCourses) {
+      console.log("Dashboard - Student view: showing all available courses");
+      return courses;
+    } else {
+      // Only show enrolled courses
+      console.log(
+        "Dashboard - Student view: filtering for enrolled courses only"
+      );
+      const enrolledCourseIds = enrollments
+        .filter(
+          (e: { user: string; course: string }) => e.user === currentUser._id
+        )
+        .map((e: { course: string }) => e.course);
+      console.log(
+        "Dashboard - Student's enrolled course IDs:",
+        enrolledCourseIds
+      );
+
+      return courses.filter((course) => enrolledCourseIds.includes(course._id));
+    }
+  }, [courses, showAllCourses, enrollments, currentUser]);
 
   // Check if user is enrolled in a specific course
   const isEnrolled = (courseId: string) => {
@@ -185,9 +225,17 @@ export default function Dashboard({
                       <>
                         <button className="btn btn-primary">Go</button>
                         <button
-                          onClick={(event) => {
+                          onClick={async (event) => {
                             event.preventDefault();
-                            deleteCourse(course._id);
+                            try {
+                              await deleteCourse(course._id);
+                              const updatedCourses = courses.filter(
+                                (c) => c._id !== course._id
+                              );
+                              setCourses(updatedCourses);
+                            } catch (error) {
+                              console.error("Error deleting course:", error);
+                            }
                           }}
                           className="btn btn-danger float-end"
                           id="wd-delete-course-click"
