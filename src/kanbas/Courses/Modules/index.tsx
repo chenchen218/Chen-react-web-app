@@ -42,11 +42,6 @@ export default function Modules() {
     dispatch(addModule(module));
   };
 
-  // Function to add a new module
-  const addNewModule = () => {
-    dispatch(addModule({ name: moduleName, course: cid })); // Dispatch Redux action
-    setModuleName(""); // Clear the input
-  };
   const fetchModules = async () => {
     const modules = await coursesClient.findModulesForCourse(cid as string);
     dispatch(setModules(modules));
@@ -74,18 +69,29 @@ export default function Modules() {
               <BsGripVertical className="me-2 fs-3" />
               {!module.editing && module.name}
               {module.editing && (
-                <input
-                  className="form-control w-50 d-inline-block"
-                  defaultValue={module.name}
-                  onChange={(e) =>
-                    dispatch(updateModule({ ...module, name: e.target.value }))
-                  }
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      saveModule({ ...module, editing: false });
+                <div className="d-inline-block">
+                  <input
+                    className="form-control w-50 d-inline-block me-2"
+                    defaultValue={module.name}
+                    onChange={(e) =>
+                      dispatch(
+                        updateModule({ ...module, name: e.target.value })
+                      )
                     }
-                  }}
-                />
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        saveModule({ ...module, editing: false });
+                      }
+                    }}
+                  />
+                  {/* Save button */}
+                  <button
+                    className="btn btn-success btn-sm"
+                    onClick={() => saveModule({ ...module, editing: false })}
+                  >
+                    Save
+                  </button>
+                </div>
               )}
               <ModuleControlButtons
                 moduleId={module._id}

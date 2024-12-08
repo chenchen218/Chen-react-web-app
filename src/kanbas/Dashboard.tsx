@@ -30,49 +30,7 @@ export default function Dashboard({
   const currentUser = useSelector(
     (state: any) => state.accountReducer.currentUser
   ) || { role: "STUDENT", _id: "1" };
-  const { enrollments, showAllCourses } = useSelector(
-    (state: any) => state.enrollmentsReducer
-  );
-
-  // Replace your current displayedCourses with this:
-  const displayedCourses = React.useMemo(() => {
-    console.log("Dashboard - Computing displayed courses:", {
-      userRole: currentUser?.role,
-      userId: currentUser?._id, // Add this to debug
-      showAllCourses,
-      totalCourses: courses.length,
-      totalEnrollments: enrollments.length,
-      enrollments: enrollments, // Add this to see actual enrollment data
-    });
-
-    // Always show all courses for faculty
-    if (currentUser?.role === "FACULTY") {
-      console.log("Dashboard - Faculty view: returning all courses");
-      return courses;
-    }
-
-    // For students, check showAllCourses flag
-    if (showAllCourses) {
-      console.log("Dashboard - Student view: showing all available courses");
-      return courses;
-    } else {
-      // Only show enrolled courses
-      console.log(
-        "Dashboard - Student view: filtering for enrolled courses only"
-      );
-      const enrolledCourseIds = enrollments
-        .filter(
-          (e: { user: string; course: string }) => e.user === currentUser._id
-        )
-        .map((e: { course: string }) => e.course);
-      console.log(
-        "Dashboard - Student's enrolled course IDs:",
-        enrolledCourseIds
-      );
-
-      return courses.filter((course) => enrolledCourseIds.includes(course._id));
-    }
-  }, [courses, showAllCourses, enrollments, currentUser]);
+  const { enrollments } = useSelector((state: any) => state.enrollmentsReducer);
 
   // Check if user is enrolled in a specific course
   const isEnrolled = (courseId: string) => {
@@ -129,14 +87,6 @@ export default function Dashboard({
     <div id="wd-dashboard">
       <div className="d-flex justify-content-between align-items-center">
         <h1 id="wd-dashboard-title">Dashboard</h1>
-        {currentUser?.role === "STUDENT" && (
-          <button
-            className="btn btn-primary"
-            onClick={() => dispatch(toggleShowAllCourses())}
-          >
-            {showAllCourses ? "Show My Courses" : "Enrollments"}
-          </button>
-        )}
       </div>
       <hr />
       {currentUser?.role === "FACULTY" && (
@@ -173,13 +123,11 @@ export default function Dashboard({
           <hr />
         </>
       )}
-      <h2 id="wd-dashboard-published">
-        Published Courses ({displayedCourses.length})
-      </h2>{" "}
+      <h2 id="wd-dashboard-published">Published Courses ({courses.length})</h2>{" "}
       <hr />
       <div id="wd-dashboard-courses" className="row">
         <div className="row row-cols-1 row-cols-md-5 g-4">
-          {displayedCourses.map((course) => (
+          {courses.map((course) => (
             <div
               className="wd-dashboard-course col"
               style={{ width: "300px" }}
