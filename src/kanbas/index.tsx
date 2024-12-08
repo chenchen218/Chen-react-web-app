@@ -19,7 +19,7 @@ export default function Kanbas() {
 
   const fetchCourses = async () => {
     try {
-      const courses = await userClient.findMyCourses();
+      const courses = await courseClient.fetchAllCourses();
       setCourses(courses);
     } catch (error) {
       console.error(error);
@@ -41,7 +41,7 @@ export default function Kanbas() {
   });
   const addNewCourse = async () => {
     try {
-      const newCourse = await userClient.createCourse(course);
+      const newCourse = await courseClient.createCourse(course);
       setCourses([...courses, newCourse]);
     } catch (error) {
       console.error("Failed to create course:", error);
@@ -58,21 +58,16 @@ export default function Kanbas() {
     }
   };
   const updateCourse = async () => {
-    try {
-      const status = await courseClient.updateCourse(course);
-      if (status === 200) {
-        setCourses(
-          courses.map((c) => {
-            if (c._id === course._id) {
-              return course;
-            }
-            return c;
-          })
-        );
-      }
-    } catch (error) {
-      console.error("Failed to update course:", error);
-    }
+    await courseClient.updateCourse(course);
+    setCourses(
+      courses.map((c) => {
+        if (c._id === course._id) {
+          return course;
+        } else {
+          return c;
+        }
+      })
+    );
   };
 
   return (

@@ -32,10 +32,10 @@ export default function PeopleDetails() {
     if (!uid) return;
     const user = await client.findUserById(uid);
     setUser(user);
-    // Initialize all editable fields when user data is fetched
-    setName(`${user.firstName} ${user.lastName}`);
+    // ADD setEmail and setRole
     setEmail(user.email);
     setRole(user.role);
+    setName(`${user.firstName} ${user.lastName}`);
   };
   useEffect(() => {
     if (uid) fetchUser();
@@ -67,37 +67,39 @@ export default function PeopleDetails() {
             className="float-end fs-5 mt-2 me-2 wd-save"
           />
         )}
-        {!editing && (
+        {!editing ? (
           <div className="wd-name" onClick={() => setEditing(true)}>
             {user.firstName} {user.lastName}
           </div>
+        ) : (
+          // {/*ADD THIS NEW SECTION FOR EDITING ALL FIELDS */}
+
+          <div className="d-flex flex-column gap-2">
+            <input
+              className="form-control wd-edit-name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && saveUser()}
+            />
+            <input
+              type="email"
+              className="form-control wd-edit-email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email"
+            />
+            <select
+              className="form-select wd-edit-role"
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+            >
+              <option value="STUDENT">Student</option>
+              <option value="FACULTY">Faculty</option>
+              <option value="ADMIN">Administrator</option>
+              <option value="TA">Teaching Assistant</option>
+            </select>
+          </div>
         )}
-        {/*ADD THIS NEW SECTION FOR EDITING ALL FIELDS */}
-        <div className="d-flex flex-column gap-2">
-          <input
-            className="form-control wd-edit-name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && saveUser()}
-          />
-          <input
-            type="email"
-            className="form-control wd-edit-email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email"
-          />
-          <select
-            className="form-select wd-edit-role"
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
-          >
-            <option value="STUDENT">Student</option>
-            <option value="FACULTY">Faculty</option>
-            <option value="ADMIN">Administrator</option>
-            <option value="TA">Teaching Assistant</option>
-          </select>
-        </div>
       </div>
       <b>Email:</b> <span className="wd-email">{user.email}</span>
       <br />
