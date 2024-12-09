@@ -49,40 +49,41 @@ export default function Dashboard({
         <h1 id="wd-dashboard-title">Dashboard</h1>
       </div>
       <hr />
-      {currentUser?.role === "FACULTY" && (
-        <>
-          <h5>
-            New Course
-            <button
-              className="btn btn-primary float-end"
-              id="wd-add-new-course-click"
-              onClick={addNewCourse}
-            >
-              Add
-            </button>
-            <button
-              className="btn btn-warning float-end me-2"
-              onClick={updateCourse}
-            >
-              Update
-            </button>
-          </h5>
-          <br />
-          <input
-            value={course.name}
-            className="form-control mb-2"
-            onChange={(e) => setCourse({ ...course, name: e.target.value })}
-          />
-          <textarea
-            value={course.description}
-            className="form-control"
-            onChange={(e) =>
-              setCourse({ ...course, description: e.target.value })
-            }
-          />
-          <hr />
-        </>
-      )}
+      {currentUser?.role === "FACULTY" ||
+        (currentUser?.role === "ADMIN" && (
+          <>
+            <h5>
+              New Course
+              <button
+                className="btn btn-primary float-end"
+                id="wd-add-new-course-click"
+                onClick={addNewCourse}
+              >
+                Add
+              </button>
+              <button
+                className="btn btn-warning float-end me-2"
+                onClick={updateCourse}
+              >
+                Update
+              </button>
+            </h5>
+            <br />
+            <input
+              value={course.name}
+              className="form-control mb-2"
+              onChange={(e) => setCourse({ ...course, name: e.target.value })}
+            />
+            <textarea
+              value={course.description}
+              className="form-control"
+              onChange={(e) =>
+                setCourse({ ...course, description: e.target.value })
+              }
+            />
+            <hr />
+          </>
+        ))}
       <h2 id="wd-dashboard-published">Published Courses ({courses.length})</h2>{" "}
       <hr />
       <div id="wd-dashboard-courses" className="row">
@@ -96,7 +97,9 @@ export default function Dashboard({
               <div className="card rounded-3 overflow-hidden">
                 <Link
                   to={
-                    currentUser?.role === "FACULTY" || isEnrolled(course._id)
+                    currentUser?.role === "FACULTY" ||
+                    currentUser?.role === "ADMIN" ||
+                    isEnrolled(course._id)
                       ? `/Kanbas/Courses/${course._id}/Home`
                       : "#"
                   }
@@ -105,6 +108,7 @@ export default function Dashboard({
                     if (
                       !(
                         currentUser?.role === "FACULTY" ||
+                        currentUser?.role === "ADMIN" ||
                         isEnrolled(course._id)
                       )
                     ) {
@@ -147,7 +151,8 @@ export default function Dashboard({
                       <button className="btn btn-primary">Go</button>
                     </Link>
 
-                    {currentUser?.role === "FACULTY" ? (
+                    {currentUser?.role === "FACULTY" ||
+                    currentUser?.role === "ADMIN" ? (
                       <>
                         {/* <button className="btn btn-primary">Go</button> */}
                         <button
