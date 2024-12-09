@@ -6,7 +6,7 @@ import Home from "./Home";
 import { Navigate, Route, Routes, useParams, useLocation } from "react-router";
 import Assignments from "./Assignments";
 import AssignmentEditor from "./Assignments/Editor";
-import PeopleTable from "./People/Table";
+import People from "./People";
 
 // Removed the import of courses from the Database
 export default function Courses({ courses }: { courses: any[] }) {
@@ -35,7 +35,7 @@ export default function Courses({ courses }: { courses: any[] }) {
               <Route path="Assignments/new" element={<AssignmentEditor />} />
               <Route path="Assignments/:aid" element={<AssignmentEditor />} />
               <Route path="Assignments" element={<Assignments />} />
-              <Route path="People" element={<PeopleTable />} />
+              <Route path="People" element={<People />} />
             </Routes>
           </td>
         </tr>
