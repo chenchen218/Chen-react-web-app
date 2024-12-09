@@ -143,9 +143,13 @@ export default function Dashboard({
                       {course.description}
                     </p>
 
+                    <Link to={`/Kanbas/Courses/${course._id}/Home`}>
+                      <button className="btn btn-primary">Go</button>
+                    </Link>
+
                     {currentUser?.role === "FACULTY" ? (
                       <>
-                        <button className="btn btn-primary">Go</button>
+                        {/* <button className="btn btn-primary">Go</button> */}
                         <button
                           onClick={async (event) => {
                             event.preventDefault();
@@ -177,22 +181,29 @@ export default function Dashboard({
                       </>
                     ) : (
                       <>
-                        {isEnrolled(course._id) && (
-                          <button className="btn btn-primary">Go</button>
-                        )}
-                        {enrolling && (
+                        {/* {isEnrolled(course._id) && (
+                          <Link to={`/Kanbas/Courses/${course._id}/Home`}>
+                            <button className="btn btn-primary">Go</button>
+                          </Link>
+                        )} */}
+                        {/* {enrolling && (
                           <button
                             onClick={(event) => {
                               event.preventDefault();
-                              updateEnrollment(course._id, !course.enrolled);
+                              updateEnrollment(
+                                course._id,
+                                !isEnrolled(course._id)
+                              );
                             }}
                             className={`btn ${
-                              course.enrolled ? "btn-danger" : "btn-success"
+                              isEnrolled(course._id)
+                                ? "btn-danger"
+                                : "btn-success"
                             } float-end`}
                           >
-                            {course.enrolled ? "Unenroll" : "Enroll"}
+                            {isEnrolled(course._id) ? "Unenroll" : "Enroll"}
                           </button>
-                        )}
+                        )} */}
                       </>
                     )}
                   </div>
