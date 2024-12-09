@@ -4,6 +4,11 @@ const REMOTE_SERVER = process.env.REACT_APP_REMOTE_SERVER;
 const ASSIGNMENTS_API = `${REMOTE_SERVER}/api/assignments`;
 const COURSES_API = `${REMOTE_SERVER}/api/courses`;
 
+export const findAssignmentById = async (assignmentId: string) => {
+  const response = await axios.get(`${ASSIGNMENTS_API}/${assignmentId}`);
+  return response.data;
+};
+
 export const findAssignmentsForCourse = async (courseId: string) => {
   const response = await axios.get(`${COURSES_API}/${courseId}/assignments`);
   return response.data;

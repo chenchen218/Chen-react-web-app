@@ -90,6 +90,9 @@ export default function AssignmentEditor() {
         ...formData,
         points: parseInt(formData.points),
         course: cid || "",
+        dueDate: new Date(formData.dueDate).toISOString(),
+        availableFrom: new Date(formData.availableFrom).toISOString(),
+        untilDate: new Date(formData.untilDate).toISOString(),
       };
 
       if (aid) {
